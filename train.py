@@ -9,7 +9,7 @@ import os
 os.makedirs('models', exist_ok=True)
 
 np.random.seed(42)
-n = 150000
+n = 10000
 df = pd.DataFrame({
     'SeriousDlqin2yrs': np.random.choice([0, 1], n, p=[0.93, 0.07]),
     'RevolvingUtilizationOfUnsecuredLines': np.random.uniform(0, 1, n),
@@ -29,7 +29,7 @@ y = df['SeriousDlqin2yrs']
 X_train, _, y_train, _ = train_test_split(X, y, test_size=0.2, random_state=42)
 smote = SMOTE(random_state=42)
 X_train_sm, y_train_sm = smote.fit_resample(X_train, y_train)
-model = RandomForestClassifier(n_estimators=50, random_state=42, n_jobs=-1)
+model = RandomForestClassifier(n_estimators=10, max_depth=5, random_state=42)
 model.fit(X_train_sm, y_train_sm)
 with open('models/best_model.pkl', 'wb') as f:
     pickle.dump(model, f)
