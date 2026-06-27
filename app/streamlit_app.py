@@ -41,7 +41,7 @@ if st.button("Analyser le dossier", type="primary", use_container_width=True):
     }
 
     try:
-        response = requests.post("http://127.0.0.1:8000/predict", json=donnees)
+        response = requests.post("https://mlops-scoring-1.onrender.com/predict", json=donnees)
         resultat = response.json()
 
         st.divider()
